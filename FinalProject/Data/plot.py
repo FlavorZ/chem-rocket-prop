@@ -2,7 +2,7 @@ from lvm2df import clean_lvm
 import matplotlib.pyplot as plt
 import pandas as pd
 
-file_path = ['TeamYellow_1.lvm', 'Blue_2.lvm', 'FestiveGreen.lvm', 'TeamRed.lvm','Team5.lvm']
+file_path = ['FinalProject/Data/TeamYellow_1.lvm', 'FinalProject/Data/Blue_2.lvm', 'FinalProject/Data/FestiveGreen.lvm', 'FinalProject/Data/TeamRed.lvm','FinalProject/Data/Team5.lvm']
 
 team1 = clean_lvm(file_path[0])
 team2 = clean_lvm(file_path[1])
