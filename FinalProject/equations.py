@@ -181,6 +181,6 @@ data = {
 
 df = pd.DataFrame(data)
 #print(df)
-df.to_csv('FinalProject/output.csv', index=False)
+df.to_csv('output.csv', index=False)
 
 print('Output file units:', output_units)
