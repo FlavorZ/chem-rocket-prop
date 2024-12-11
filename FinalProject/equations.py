@@ -71,6 +71,8 @@ Cstar_imperial = [4888.184,
 
 ## UNITS & CONVERSION
 if output_units == 'metric':
+    mass_dim = 'kg'
+    pressure_dim = 'Pa'
     Cstar = Cstar_metric
     in_to_m = 0.0254
     psi_to_pa = 6894.757
@@ -97,11 +99,11 @@ elif output_units == 'imperial':
     m_dot_ox = (101219.16/((8314/32)*300))*v_dot_ox*(1/60000)*2.205 # lb/sec
     #Chamber Properties
     P_amb = P_amb * 14.696 # atm to psi
+    mass_dim = 'lb'
+    pressure_dim = 'psi'
 else:
     print("Invalid output_units. Please choose 'imperial' or 'metric'.")
     exit()
-
-print(f'm_dot_ox: {m_dot_ox:.4f} kg/s')
 
 ## INITIAL PARAMETERS (CALCULATED)
 #Grain Geometry
@@ -183,4 +185,7 @@ df = pd.DataFrame(data)
 #print(df)
 df.to_csv('output.csv', index=False)
 
-print('Output file units:', output_units)
+print('Output file units:', str.upper(output_units))
+print(f'Geometry:\nR_0: {R_0:.4f} {mass_dim}\nL: {L:.4f} {mass_dim}\nd_f: {d_f:.4f} {mass_dim}\n')
+print(f'Chamber Parameters:\nm_dot_ox: {m_dot_ox:.4f} {mass_dim}/s\nP_c: {P_c:.4f} {pressure_dim}\n')
+print(f'Nozzle Parameters:\nd_throat: {d_throat:.4f} {mass_dim}\nArea Ratio: {Area_ratio}\nP_e: {P_e:.4f} {pressure_dim}\n')
