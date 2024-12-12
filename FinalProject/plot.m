@@ -6,11 +6,11 @@ time_upper_bound = 295.7; % Replace with the desired upper bound
 time_model_offset = 0;
 
 % Create a subplot layout (2 rows, 2 columns)
-figure;
+figure; 
 
 % First subplot: Line plot and scatter plot for data1
 subplot(2, 2, 1); % Create the first subplot
-scatter(data1(:,1), data1(:,5), 'b-', 'LineWidth', 1.5); % Line plot for column 5
+plot(data1(:,1), data1(:,5), 'b-', 'LineWidth', 1.5); % Line plot for column 5
 hold on; % Hold for overlaying scatter plot
 scatter(data1(:,1), data1(:,9), 'r', 'filled'); % Scatter plot for column 9
 grid on; % Add a grid
