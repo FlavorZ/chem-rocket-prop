@@ -1,8 +1,8 @@
-team1 = lvm_import('Team2.lvm')
-team2 = lvm_import('Team2.lvm')
-team3 = lvm_import('Team3.lvm')
-team4 = lvm_import('Team4.lvm')
-team5 = lvm_import('Team5.lvm')
+team1 = lvm_import('TeamYellow_1.lvm')
+team2 = lvm_import('TeamYellow_1.lvm')
+team3 = lvm_import('TeamYellow_1.lvm')
+team4 = lvm_import('TeamYellow_1.lvm')
+team5 = lvm_import('TeamYellow_1.lvm')
 
 data1 = team1.Segment1.data;
 data2 = team2.Segment1.data;
@@ -11,7 +11,7 @@ data4 = team4.Segment1.data;
 data5 = team5.Segment1.data;
 
 % Define lower and upper bounds for the x-axis (time)
-time_lower_bound = 290; %282.068; % Replace with the desired lower bound
+time_lower_bound = 282.068; % Replace with the desired lower bound
 time_upper_bound = 295.7; % Replace with the desired upper bound
 
 % Create a subplot layout (2 rows, 2 columns)
@@ -24,19 +24,18 @@ hold on; % Hold for overlaying scatter plot
 scatter(data1(:,1), data1(:,9), 'r', 'filled'); % Scatter plot for column 9
 grid on; % Add a grid
 xlabel('Time (s)'); % Label for the x-axis
-ylabel('Pressure (psi)'); % Replace with your y-axis label
-title('Pressure'); % Title for the first subplot
+ylabel('Y-axis Label'); % Replace with your y-axis label
+title('Plot of Column 1 vs Columns 5 and 9 - Data1'); % Title for the first subplot
 xlim([time_lower_bound, time_upper_bound]); % Set x-axis limits
 legend('Column 5 (Line)', 'Column 9 (Scatter)'); % Add a legend
 
 % Second subplot: Line plot for data2, column 6
 subplot(2, 2, 2); % Create the second subplot
-plot(data1(:,1), data1(:,8), 'r-', 'LineWidth', 1.5); % Line plot for column 6
+plot(data2(:,1), data2(:,6), 'r-', 'LineWidth', 1.5); % Line plot for column 6
 grid on; % Add a grid
-scatter(output(:,1), output(:,9), 'r', 'filled'); % Scatter plot for column 9
 xlabel('Time (s)'); % Label for the x-axis
-ylabel('Force (lbf)'); % Replace with your y-axis label
-title('Force'); % Title for the second subplot
+ylabel('Y-axis Label'); % Replace with your y-axis label
+title('Plot of Column 1 vs Column 6 - Data2'); % Title for the second subplot
 xlim([time_lower_bound, time_upper_bound]); % Set x-axis limits
 legend('Data2'); % Add a legend
 
