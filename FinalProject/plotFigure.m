@@ -6,7 +6,6 @@ force = data1(:, 8); % Example data for plotting
 master_setpoint = data1(:, 9); % Example data for plotting
 
 % Import Model Data
-modelData = table2array(modelData)
 time_model = modelData(:,1);
 mass_flow_ox_model = modelData(:,'MassFlowRateFuel_lb_s_');
 pressure_model = modelData(:,'ChamberPressure_psi_');
@@ -14,7 +13,9 @@ force_model = modelData(:, 'Thrust_lbf_');
 
 % Model Offset
 model_time_offset = 30;
-time_model = time_model + model_time_offset
+time_model = table2array(time_model);
+time_model = time_model + model_time_offset;
+time_model = array2table(time_model);
 
 % Create a figure with 2x2 subplots
 figure;
