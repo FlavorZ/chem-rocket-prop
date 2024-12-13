@@ -11,4 +11,3 @@ data2 = team2.Segment1.data;
 data3 = team3.Segment1.data;
 data4 = team4.Segment1.data;
 data5 = team5.Segment1.data;
-
