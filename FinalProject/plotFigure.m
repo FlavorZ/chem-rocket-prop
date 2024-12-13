@@ -121,3 +121,18 @@ grid on;
 hold off;
 
 %sgtitle("Team "+ string(teamnum))
+
+% Combine Experimental and Model Data for Output
+output_experiment = table(time, mass_ox_flow, master_setpoint, pressure, force, isp, Cstar);
+output_model = table(time_model, mass_flow_model, pressure_model, force_model, isp_model, Cstar_model);
+
+% Save to CSV
+output_file_exp = "GraphOutput_Exp_Team" + string(teamnum) + ".csv";
+output_file_mod = "GraphOutput_Model_Team" + string(teamnum) + ".csv";
+writetable(output_experiment, output_file_exp);
+writetable(output_model, output_file_mod);
+
+% Display confirmation
+disp(['Data saved to file: ', output_file_exp, output_file_mod]);
+
+
