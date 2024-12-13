@@ -35,9 +35,11 @@ Cstar_model = table2array(modelData(:,5));
 OF_model = table2array(modelData(:,3));
 
 % Experimental Data Calculated
-A_th = 7.782e-4 + 0.491; % function for throat area w.r.t. time
+A_th = 7.782e-4 .* time + 0.491; % function for throat area w.r.t. time
 isp = force ./ (mass_ox_flow * g_c); % Eqn 2.29
-Cstar = pressure * A_th ./ mass_ox_flow * 12; % Eqn 2.26 % Convert ft to in
+%C_f = force ./ (pressure.*A_th)
+Cstar = pressure .* A_th ./ mass_ox_flow * 12; % Eqn 2.26 % Convert ft to in
+%isp = Cstar .* C_f ./ g_c
 
 % Model Offset
 experiment_start_time = time_frames(teamnum,1);
@@ -48,7 +50,7 @@ time = time - experiment_start_time;
 figure;
 
 % Plot 1: Flowrate vs Time
-subplot(3, 2, 1);
+subplot(2, 3, 1);
 plot(time, mass_ox_flow, 'b:', 'LineWidth', 1.5); % Experimental dotted line
 hold on;
 plot(time_model, mass_flow_model, 'r-', 'LineWidth', 1.5); % Model solid line
@@ -63,7 +65,7 @@ grid on;
 hold off;
 
 % Plot 2: Pressure vs Time
-subplot(3, 2, 2);
+subplot(2, 3, 2);
 plot(time, pressure, 'b:', 'LineWidth', 1.5); % Experimental dotted line
 hold on;
 plot(time_model, pressure_model, 'r-', 'LineWidth', 1.5); % Model solid line
@@ -77,7 +79,7 @@ grid on;
 hold off;
 
 % Plot 3: Force vs Time
-subplot(3, 2, 3);
+subplot(2, 3, 3);
 plot(time, force, 'b:', 'LineWidth', 1.5); % Experimental dotted line
 hold on;
 plot(time_model, force_model, 'r-', 'LineWidth', 1.5); % Model solid line
@@ -91,29 +93,31 @@ grid on;
 hold off;
 
 % Plot 4: Isp vs Time
-subplot(3, 2, 4);
+subplot(2, 3, 4);
 plot(time, isp, 'b:', 'LineWidth', 1.5); % Experimental dotted line
 hold on;
 plot(time_model, isp_model, 'r', 'LineWidth', 1.5); % Model solid line
 xlabel('Time (s)');
 ylabel('Isp (s)');
 title('Isp vs Time');
+legend('Experimental', 'Model', 'Location', 'best');
 xlim([0, experiment_duration]);
 ylim([0, max(isp) * 1.2]);
 grid on;
 hold off;
 
 % Plot 4: Cstar vs Time
-subplot(3, 2, 5);
+subplot(2, 3, 5);
 plot(time, Cstar, 'b:', 'LineWidth', 1.5); % Experimental dotted line
 hold on;
 plot(time_model, Cstar_model, 'r', 'LineWidth', 1.5); % Model solid line
 xlabel('Time (s)');
 ylabel('Cstar (in/s)');
 title('Cstar vs Time');
+legend('Experimental', 'Model', 'Location', 'best');
 xlim([0, experiment_duration]);
 ylim([0, max(Cstar_model) * 1.2]);
 grid on;
 hold off;
 
-sgtitle("Team "+ string(teamnum))
+%sgtitle("Team "+ string(teamnum))
