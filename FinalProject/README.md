@@ -1,5 +1,5 @@
 # Final Project
-This file contains the data for MECH 517 hyvrid rocket final project.
+This directory contains the code used to plot and analyze the data for MECH 517 hybrid rocket final project.
 
 ---------
 
@@ -12,5 +12,5 @@ This file contains the data for MECH 517 hyvrid rocket final project.
 - HW-5_spreadsheet.xlsx - spreadsheet provided by Dr. D to model the hybrid rocket from equations.
 
 ### Folders:
-- Data/ - Contains the experimental data of all 5 team.
+- Data/ - Contains the experimental data of all 5 team and the processed modeled data.
 - figures/ - figures output from plotFigure.m
