@@ -4,7 +4,7 @@ if reload == true
     clear all
     clc
 
-    % Team number - 1-5
+    % Team number - Select an integer 1-5
     teamnum = 1;
 
     % Load Data
@@ -18,16 +18,16 @@ g_c = 32.474; % ft/s^2
 time_frames = [283.175 12.5; 30 12.5; 27.5 14; 166 14; 53.3 14];
 
 % Import Experimental Data
-time = data(:, 1);
-mass_ox_flow = data(:, 4); 
-pressure = data(:, 5);
-force = data(:, 8);
-master_setpoint = data(:, 9);
+time = data(:, 1); 
+mass_ox_flow = data(:, 4) * 4.4945e-5; % Convert from SLPM to lb/s
+pressure = data(:, 5); % psi
+force = data(:, 8); % lbf
+master_setpoint = data(:, 9) * 4.4945e-5; % SLPM to lb/s
 
 % Import Model Data
 time_model = table2array(modelData(:,1));
-mass_flow_f_model = table2array(modelData(:,2)) * 22045.89; % Convert m_dot_ox to SLPM
-mass_flow_model = mass_flow_f_model + 500; %SLPM
+mass_flow_f_model = table2array(modelData(:,2));
+mass_flow_model = mass_flow_f_model + (500 * 4.4945e-5); % converts SLPM to lb/s
 pressure_model = table2array(modelData(:,7));
 force_model = table2array(modelData(:,10));
 isp_model = table2array(modelData(:,11));
@@ -37,7 +37,7 @@ OF_model = table2array(modelData(:,3));
 % Experimental Data Calculated
 A_th = 7.782e-4 + 0.491; % function for throat area w.r.t. time
 isp = force ./ (mass_ox_flow * g_c); % Eqn 2.29
-Cstar = pressure * A_th ./ (mass_ox_flow* 4.4945e-5); % Eqn 2.26 % convert SLPM to lb/s
+Cstar = pressure * A_th ./ mass_ox_flow * 12; % Eqn 2.26 % Convert ft to in
 
 % Model Offset
 experiment_start_time = time_frames(teamnum,1);
@@ -54,7 +54,7 @@ hold on;
 plot(time_model, mass_flow_model, 'r-', 'LineWidth', 1.5); % Model solid line
 plot(time, master_setpoint, 'g:', 'LineWidth', 1.5); % Experimental dotted line
 xlabel('Time (s)');
-ylabel('m_d_o_t (SLPM)');
+ylabel('m_d_o_t (lb/s)');
 title('Flowrate vs Time');
 legend('Experimental', 'Model', 'Master Setpoint', 'Location', 'best');
 xlim([0, experiment_duration]);
@@ -112,7 +112,7 @@ xlabel('Time (s)');
 ylabel('Cstar (in/s)');
 title('Cstar vs Time');
 xlim([0, experiment_duration]);
-ylim([0, max(Cstar) * 1.2]);
+ylim([0, max(Cstar_model) * 1.2]);
 grid on;
 hold off;
 
