@@ -74,6 +74,9 @@ if output_units == 'metric':
     dim_mass = 'kg'
     dim_pressure = 'Pa'
     dim_length = 'm'
+    dim_velocity = 'm/s'
+    dim_mass_flow = 'kg/s'
+    dim_force = 'N'
     Cstar = Cstar_metric
     in_to_m = 0.0254
     psi_to_pa = 6894.757
@@ -90,9 +93,14 @@ if output_units == 'metric':
     #Chamber Properties
     P_c = P_c * psi_to_pa # Pa
     P_e = P_e * psi_to_pa # Pa
-    P_amb = P_amb * atm_to_pa # Pa
-    
+    P_amb = P_amb * atm_to_pa # Pa    
 elif output_units == 'imperial':
+    dim_mass = 'lb'
+    dim_pressure = 'psi'
+    dim_length = 'in'
+    dim_velocity = 'ft/s'
+    dim_mass_flow = 'lb/s'
+    dim_force = 'lbf'
     Cstar = Cstar_imperial
     g_0 = 386.1 # in/s^2
     #Propellant Properties
@@ -170,22 +178,22 @@ for t in time[1:]:
 # Make a table of arrays using pandas
 data = {
     'Time (s)': time,
-    'Mass Flow Rate Fuel (kg/s)': m_dot_f,
+    'Mass Flow Rate Fuel ('+ dim_mass_flow +')': m_dot_f,
     'OF Ratio': OF_ratio_t,
-    'C* (m/s)': Cstar_t,
+    'C* ('+ dim_velocity + ')': Cstar_t,
     'Gamma': Gamma_t,
-    'Chamber Pressure (Pa)': P_c_t,
+    'Chamber Pressure ('+ dim_pressure +')' : P_c_t,
     'Cf0': Cf0,
     'Thrust Coefficient': Cf,
-    'Thrust (N)': thrust,
+    'Thrust ('+ dim_force +')' : thrust,
     'Isp (s)': isp,
-    'Burn Rate (m/s)': r_dot,
-    'Port Radius (m)': r_port
+    'Burn Rate ('+ dim_velocity +')' : r_dot,
+    'Port Radius ('+dim_length+')': r_port
 }
 
 df = pd.DataFrame(data)
 #print(df)
-df.to_csv('output.csv', index=False)
+df.to_csv('modelData.csv', index=False)
 
 print('Output file units:', str.upper(output_units))
 print(f'Geometry:\nR_0: {R_0:.4f} {dim_length}\nL: {L:.4f} {dim_length}\nd_f: {d_f:.4f} {dim_length}\n')
